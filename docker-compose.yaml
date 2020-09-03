@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  #nginx 代理一波前后端api，伪前后端分离，不喜欢纯分离
+  nginx:
+    restart: always
+    image: nginx:1.17.0
+    container_name: nginx.blog.docker
+    ports:
+      - 8888:80
+    volumes:
+      - ./docker/nginx:/etc/nginx/conf.d
+  #前端
+  web:
+    image: node:lts
+    container_name: web.blog.docker
+    volumes:
+      - './web:/app'
+    tty: true
+
+  #后端
+  rails:
+    image: agideo/ruby:2.5-10
+    container_name: rails.blog.docker
+    volumes:
+      - '.:/app'
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql.blog.docker
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - "mysql_data:/var/lib/mysql"
+
+  redis:
+    image: redis
+    container_name: redis.blog.docker
+    volumes:
+      - "redis_data:/data"
+
+volumes:
+  mysql_data:
+  redis_data:
+
+networks:
+  default:
+    external:
+      name: default-network
