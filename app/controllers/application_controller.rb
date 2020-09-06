@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     raise AuthorizationException.new if user_id == nil
 
     if user_id != nil then
-      Current.user = User.find_by(user_id)
+      Current.user = User.find_by(id: user_id)
       raise AuthorizationException.new if Current.user == nil
     end
   end
@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorization
-    render status: 404, json: {
+    render status: 400, json: {
       success: false,
       message: "你没有权限",
     }

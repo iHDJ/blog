@@ -1,6 +1,6 @@
 class DestroyCommentService < BaseService
   def validate
-    article_id, comment_id = param[:article_id], param[:comment_id]
+    article_id, comment_id = param[:article_id], param[:id]
 
     return result_error(code: 400, message: "参数错误") if comment_id.blank?
     return result_error(code: 400, message: "参数错误") if article_id.blank?
@@ -16,6 +16,7 @@ class DestroyCommentService < BaseService
     end
 
     @comment = comment
+    return nil
   end
 
   def execute

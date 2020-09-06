@@ -5,7 +5,7 @@ class Api::V1::SessionsController < ApplicationController
     result = service.exec
 
     if result[:success] then
-      session[:user_id] = service.user.id
+      session[:user_id] = Current.user.id
     end
 
     render_service_json(result)
@@ -16,7 +16,7 @@ class Api::V1::SessionsController < ApplicationController
     session.clear
 
     render_service_json({
-      success: false,
+      success: true,
       code: 200,
       message: "sign out success, welcome back",
     })

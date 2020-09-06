@@ -1,21 +1,23 @@
 class UserSignUpService < BaseService
-  attr_reader :user
-
   def validate
     username, password = param[:username], param[:password]
 
-    param_error = render_error(code: 400, message: "参数错误")
-    return param_error if username.blank?
-    return param_error if username.blank?
+    param_error = result_error(code: 400, message: "参数错误")
+    return param_error if username.blank? || username.size < 3
+    return param_error if password.blank? || password.size < 6
 
-    @username, @password = username, password
+    if User.exists?(name: username.strip) then
+      return result_error(code: 400, message: "用户已存在")
+    end
+
+    @username, @password = username.strip, password.strip
     return nil
   end
 
   def execute
-    @user = User.create!(
-      username: username,
-      password: password,
+    Current.user = User.create!(
+      name: @username,
+      password: @password,
     )
 
     result_success(message: "注册成功", data: nil)

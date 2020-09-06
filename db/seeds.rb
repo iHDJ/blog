@@ -17,3 +17,10 @@ User.create(
   password: "asdfasdF",
   is_admin: false,
 )
+
+10.times do |i|
+  Article.create!(
+    title: "Article##{i}",
+    content: "# This is Article##{i} Content",
+  )
+end

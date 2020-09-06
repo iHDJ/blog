@@ -10,10 +10,7 @@ class BaseService
     res = validate
 
     if res != nil then
-      return result_error(
-        code: 400,
-        message: "参数有误",
-      )
+      return res
     end
 
     execute

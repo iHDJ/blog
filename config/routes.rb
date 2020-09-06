@@ -6,10 +6,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :articles do
-        resources :comments, only: [:create, :destroy]
+        resources :comments, only: [:index, :create, :destroy]
       end
 
-      resources :users, only: [:create]
+      resource :user, only: [:show, :create]
+      resource :session, only: [:create, :destroy]
     end
   end
 
