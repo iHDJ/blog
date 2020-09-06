@@ -1,3 +1,5 @@
+import { message } from "antd";
+
 export default {
   namespace: 'index',
   state: {
@@ -11,8 +13,6 @@ export default {
           url: '/api/v1/articles',
         },
       });
-
-      console.log('response', response);
 
       yield put.resolve({
         type: 'setArticles',
@@ -35,7 +35,11 @@ export default {
         },
       });
 
-      console.log(response);
+      if (response.success) {
+        message.success(response.message)
+      }else {
+        message.error(response.message)
+      }
     },
   },
 

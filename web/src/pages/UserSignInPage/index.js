@@ -7,7 +7,6 @@ class UserSignInPage extends React.Component {
   onSubmit = ({ username, password }) => {
     const { dispatch } = this.props;
 
-    console.log(username, password)
     dispatch({
       type: "UserSignInPage/Login",
       payload: {

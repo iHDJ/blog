@@ -7,7 +7,6 @@ class UserSignUpPage extends React.Component {
   onSubmit = ({ username, password }) => {
     const { dispatch } = this.props;
 
-    console.log(username, password)
     dispatch({
       type: "UserSignUpPage/Register",
       payload: {
